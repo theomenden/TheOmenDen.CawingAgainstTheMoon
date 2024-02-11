@@ -1,0 +1,94 @@
+﻿@page "/upload-csv"
+<Row Margin="Margin.Is3.FromTop.Is2.FromBottom">
+    <Column ColumnSize="ColumnSize.IsHalf.OnTablet.IsFull.OnMobile">
+        <Card Background="Background.Dark"
+              TextColor="TextColor.Light">
+            <CardBody>
+                <CardTitle Size="3">
+                    Upload your CSV(s) here!
+                </CardTitle>
+                <CardSubtitle>
+                    You can upload your CSV(s) here. The system will process the data and provide you with a report.
+                </CardSubtitle>
+            </CardBody>
+            <CardBody>
+                <Field>
+                    <FilePicker @ref="filePickerCustom"
+                                ShowMode="FilePickerShowMode.List"
+                                MaxChunkSize="FileEditMaxChunkSize"
+                                Written="OnFilePartReceived"
+                                Ended="OnFileUploadEnded"
+                                Progressed="OnFileUploadProgressChanged"
+                                Upload="OnFileUploadBuffered"
+                                Filter=".csv"
+                                Multiple />
+                </Field>
+            </CardBody>
+        </Card>
+    </Column>
+    <Column ColumnSize="ColumnSize.IsHalf.OnTablet.IsFull.OnMobile"
+            Background="Background.Dark"
+            TextColor="TextColor.Light">
+        <Container Fluid Margin="Margin.Is4.FromTop">
+            @if (!_fileHeaders.Any())
+            {
+                <Card Background="Background.Dark"
+                      TextColor="TextColor.Light">
+                    <CardBody>
+                        <CardTitle Size="4">
+                            No files uploaded yet
+                        </CardTitle>
+                        <CardSubtitle>
+                            You have not uploaded any files yet. Please upload a file to get started.
+                        </CardSubtitle>
+                    </CardBody>
+                </Card>
+            }
+            else
+            {
+                <TransferList TItem="FileHeader"
+                              Items="@_fileHeaders"
+                              @bind-ItemsStart="@_fileHeadersToExtract"
+                              @bind-ItemsEnd="@_fileHeadersToJson"
+                              SelectionMode="ListGroupSelectionMode.Multiple"
+                              Mode="ListGroupMode.Selectable"
+                              Scrollable
+                              ShowMoveAll
+                              ValueField="item => item.ColumnIndex.ToString()"
+                              TextField="item => item.Name"
+                              MoveButtonsColor="Color.Warning">
+                    <ItemStartTemplate>
+                        <Card Shadow="Shadow.Default" Border="Border.Is1.Dark.OnAll.Rounded" Margin="Margin.Is3.OnY">
+                            <CardBody>
+                                <CardText TextSize="TextSize.Large">
+                                    @context.Text
+                                    <Icon Name="@("bi bi-filetype-csv")" IconSize="IconSize.x9" />
+                                </CardText>
+                            </CardBody>
+                        </Card>
+                    </ItemStartTemplate>
+                    <ItemEndTemplate>
+                        <Card Shadow="Shadow.Default" Border="Border.Is1.Dark.OnAll.Rounded" Margin="Margin.Is3.OnY">
+                            <CardBody>
+                                <CardText TextSize="TextSize.Large">
+                                    @context.Text
+                                    <Icon Name="@("bi bi-filetype-json")" IconSize="IconSize.x9" />
+                                </CardText>
+                            </CardBody>
+                        </Card>
+                    </ItemEndTemplate>
+                </TransferList>
+                <Button Color="Color.Primary"
+                        Clicked="@ProcessSelectedColumns"
+                        Shadow="Shadow.Default"
+                        Border="Border.Is2.OnAll.Light.OnAll.Rounded.OnAll">
+                    Perform Conversion <Icon Name="@("bi bi-arrow-repeat")" />
+                </Button>
+            }
+        </Container>
+    </Column>
+</Row>
+<Row>
+    <Column>
+    </Column>
+</Row>

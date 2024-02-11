@@ -1,0 +1,16 @@
+﻿<Router AppAssembly="@typeof(App).Assembly">
+    <Found Context="routeData">
+        <RouteView RouteData="@routeData" DefaultLayout="@typeof(MainLayout)" />
+    </Found>
+    <NotFound>
+        <PageTitle>Not found</PageTitle>
+        <LayoutView Layout="@typeof(MainLayout)">
+            <Alert>Sorry, there's nothing at this address.</Alert>
+        </LayoutView>
+    </NotFound>
+</Router>
+<MessageProvider />
+<NotificationProvider />
+<PageProgressProvider />
+<ModalProvider UseModalStructure Animated Size="ModalSize.ExtraLarge" />
+<ApplicationLoadingIndicator />

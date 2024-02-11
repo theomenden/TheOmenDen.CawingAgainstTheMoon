@@ -1,0 +1,61 @@
+﻿@page "/upload-json"
+<PageTitle>Upload Json for Conversion</PageTitle>
+<Row Margin="Margin.Is3.FromTop.Is2.FromBottom">
+    <Column ColumnSize="ColumnSize.IsHalf.OnTablet.IsFull.OnMobile">
+        <Card Background="Background.Dark"
+              TextColor="TextColor.Light">
+            <CardBody>
+                <CardTitle Size="3">
+                    Upload your JSON files here!
+                </CardTitle>
+                <CardSubtitle>
+                    You can upload your JSON files here. The system will process the data and provide you with a report.
+                </CardSubtitle>
+            </CardBody>
+            <CardBody>
+                <Field>
+                    <FilePicker @ref="filePickerCustom"
+                                ShowMode="FilePickerShowMode.List"
+                                MaxChunkSize="FileEditMaxChunkSize"
+                                Written="OnFilePartReceived"
+                                Ended="OnFileUploadEnded"
+                                Progressed="OnFileUploadProgressChanged"
+                                Upload="OnFileUploadBuffered"
+                                Filter=".json"
+                                Multiple />
+                 </Field>
+             </CardBody>
+         </Card>
+     </Column>
+     <Column ColumnSize="ColumnSize.IsHalf.OnTablet.IsFull.OnMobile"
+             Background="Background.Dark"
+             TextColor="TextColor.Light">
+         <DataGrid TItem="string">
+             <DataGridColumns>
+                 <DataGridColumn Caption="Source File" />
+                 <DataGridCheckColumn Caption="Item Key" />
+             </DataGridColumns>
+             <LoadingTemplate>
+                 <Progress @ref="progressRef" Color="Color.Primary" Max="100" Value="progress" />
+             </LoadingTemplate>
+             <EmptyTemplate>
+                 <Card Background="Background.Dark"
+                       TextColor="TextColor.Light">
+                     <CardBody>
+                         <CardTitle Size="4">
+                             No files uploaded yet
+                         </CardTitle>
+                         <CardSubtitle>
+                             You have not uploaded any files yet. Please upload a file to get started.
+                         </CardSubtitle>
+                     </CardBody>
+                 </Card>
+             </EmptyTemplate>
+
+         </DataGrid>
+     </Column>
+ </Row>
+ <Row>
+     <Column>
+     </Column>
+ </Row>

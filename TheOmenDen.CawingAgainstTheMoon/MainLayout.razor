@@ -1,0 +1,48 @@
+﻿@inherits LayoutComponentBase
+@layout RootLayout
+<Layout>
+    <LayoutHeader>
+        <Bar ThemeContrast="ThemeContrast.Dark"
+             Mode="BarMode.Horizontal"
+             Background="Background.Dark"
+             Breakpoint="Breakpoint.Desktop">
+            <BarBrand>
+                Caw Against <BarIcon IconName="@("bi bi-moon-stars")" />
+            </BarBrand>
+            <BarMenu>
+                <BarStart>
+                    <BarItem>
+                        <BarLink To="upload-csv" Match="Match.All">
+                            CSV Upload<BarIcon IconName="@("bi bi-filetype-csv")" />
+                        </BarLink>
+                    </BarItem>
+                    <BarItem>
+                        <BarLink To="upload-json" Match="Match.All">
+                            JSON Upload<BarIcon IconName="@("bi bi-filetype-json")" />
+                        </BarLink>
+                    </BarItem>
+                </BarStart>
+            </BarMenu>
+        </Bar>
+    </LayoutHeader>
+    <LayoutContent Padding="Padding.Is4.OnX">
+        @Body
+    </LayoutContent>
+    <LayoutFooter>
+        <Bar ThemeContrast="ThemeContrast.Dark"
+             Mode="BarMode.Horizontal"
+             Background="Background.Dark"
+             Breakpoint="Breakpoint.Desktop"
+             Flex="Flex.Row.Grow.Is1.JustifyContent.Between.AlignItems.Center">
+            <BarItem TextColor="TextColor.Light">
+                Version: 1.0.0 <BarIcon IconName="IconName.Code" />
+            </BarItem>
+            <BarBrand>
+                The Omen Den&trade; 2021-2024<BarIcon IconName="IconName.Copyright" />
+            </BarBrand>
+            <BarItem TextColor="TextColor.Light">
+                Powered by <Blazorise.Link To="https://blazorise.com" Target="Target.Blank">Blazorise<BarIcon IconName="IconName.ExternalLinkSquareAlt" /></Blazorise.Link>
+            </BarItem>
+        </Bar>
+    </LayoutFooter>
+</Layout>
